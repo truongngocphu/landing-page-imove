@@ -1,0 +1,1 @@
+export default function Loading() { return <div className="container" role="status"><p className="pt-10 text-muted">Đang mở hành trình mới…</p><div className="loading-shell" aria-hidden="true" /></div>; }

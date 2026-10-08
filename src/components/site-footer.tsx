@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { Brand, Icon } from "./ui";
+export function SiteFooter() {
+  return <footer className="site-footer"><div className="container"><div className="footer-grid"><div className="footer-intro"><Brand footer /><p>Kết nối những hành trình.<br />Chuyển động cùng cuộc sống.</p><span className="footer-location"><Icon name="pin" size={15} /> Được xây dựng cho Việt Nam</span></div><div><h2>Khám phá iMove</h2><Link href="/gioi-thieu">Về TH79 iMove</Link><Link href="/dich-vu">Dịch vụ</Link><Link href="/tinh-nang">Tính năng</Link></div><div><h2>Hệ sinh thái</h2><Link href="/he-sinh-thai/user">iMove User</Link><Link href="/he-sinh-thai/driver">iMove Driver</Link><Link href="/he-sinh-thai/merchant">iMove Merchant</Link></div><div><h2>Bắt đầu hành trình</h2><Link href="/tai-ung-dung">Tải ứng dụng</Link><Link href="/#cau-hoi">Câu hỏi thường gặp</Link><span className="footer-note">Thông tin dịch vụ được cập nhật theo ứng dụng chính thức.</span></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} TH79 iMove.</span><span>Mỗi kết nối, một hành trình mới.<span className="tiny-dot" /></span></div></div></footer>;
+}
