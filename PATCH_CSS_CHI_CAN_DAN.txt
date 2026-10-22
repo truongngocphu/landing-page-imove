@@ -1,0 +1,19 @@
+
+/* iMOVE FIX: restore reliable click target for Navbar download CTA.
+   The header previously used an absolutely positioned CTA on narrow screens.
+   Keep it above neighboring nav controls without changing its layout. */
+.imove-new-nav-wrap { position: relative; }
+.imove-nav-download,
+.imove-nav-download:hover,
+.imove-nav-download:focus-visible {
+  z-index: 20;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.imove-nav-download:focus-visible {
+  outline: 3px solid rgba(239,7,19,.35);
+  outline-offset: 3px;
+}
+@media (max-width: 730px) {
+  .imove-nav-download { z-index: 60; }
+}

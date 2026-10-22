@@ -1,0 +1,6 @@
+# Ví dụ location cấu hình trong server block Nginx trên VPS:
+# root /var/www/imove/dist;
+# index index.html;
+location / {
+  try_files $uri $uri/ /index.html;
+}

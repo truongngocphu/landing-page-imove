@@ -1,0 +1,21 @@
+Trong src/App.jsx > function NewHeader, them const navigate = useNavigate(); va thay nut NavLink Tải ứng dụng bang:
+
+        <NavLink
+          to="/tai-ung-dung"
+          className={({isActive})=>`pill-btn imove-nav-download ${isActive?'is-current':''}`}
+          aria-label={tx('Tải ứng dụng iMove','Get iMove apps')}
+          onClick={(event) => {
+            // Preserve opening in a new tab and other native browser behaviors.
+            if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            setRegOpen(false);
+            setSidebarOpen(false);
+            if (pathname === '/tai-ung-dung') {
+              window.scrollTo({top: 0, behavior: 'smooth'});
+            } else {
+              navigate('/tai-ung-dung');
+            }
+          }}
+        >
+          <span>{tx('Tải ứng dụng','Get the apps')}</span><ArrowRight size={17}/>
+        </NavLink>
