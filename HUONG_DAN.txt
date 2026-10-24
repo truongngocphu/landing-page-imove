@@ -1,49 +1,29 @@
-TH79 iMOVE - PATCH: ĐĂNG KÝ TÀI KHOẢN -> TẢI ĐÚNG ỨNG DỤNG
+PATCH iMOVE - CHINH LOI ZOOM 50% / MAN HINH RONG
 
-CẬP NHẬT DỰA TRÊN:
-iMOVE_PATCH_NAVBAR_MOBILE_1_HANG_VI_EN_SIDEBAR.zip (15/10/2026)
+Nguyen nhan:
+  Hero desktop gioi han max-height 740px nhung anh o che do object-fit: cover
+  trai rong den 100vw. Khi thu nho zoom 50%, viewport CSS rong hon nhieu
+  nen anh bi cat doc, dien thoai bi phong to va cac khoi ben duoi nho hep.
 
-CHỈ CẦN CHÉP ĐÈ 2 FILE:
-1) src/App.jsx
-2) src/styles.css
+CACH 1 (de nhat)
+  Chep file styles.css vao src/styles.css trong du an React + Vite,
+  ghi de phien ban cu (chi nen lam neu code CSS chua duoc tu sua sau PATCH cu).
 
-LUỒNG ĐIỀU HƯỚNG MỚI:
-- Đăng ký iMove User     -> /tai-ung-dung#app-user
-- Đăng ký iMove Driver   -> /tai-ung-dung#app-driver
-- Đăng ký iMove Merchant -> /tai-ung-dung#app-merchant
+CACH 2 (an toan neu da tu chinh giao dien)
+  Mo PATCH_ZOOM_CSS.txt, copy TOAN BO noi dung, dan vao CUOI src/styles.css.
+  Cac style hien co duoc giu nguyen, chi bo sung media query cho man hinh rong.
 
-Khi mở một đường dẫn trên, website cuộn đến đúng thẻ tải ứng dụng tương ứng,
-làm nổi bật thẻ bằng viền đỏ và hiển thị hướng dẫn "Tải app để đăng ký".
-Hai nút App Store / Google Play tại thẻ đó truyền đúng role tới handler tải ứng dụng.
+Sau do:
+  npm run dev
+  Trinh duyet: Ctrl + F5, kiem tra zoom 100%, 75%, 50% va 125%.
+  Vercel: npm run build, deploy lai.
 
-ÁP DỤNG CHO:
-- Danh sách đăng ký ở Navbar desktop.
-- Danh sách đăng ký trong sidebar mobile.
-- Kết quả tìm kiếm đăng ký trên website.
-- Nút đăng ký trong trang hướng dẫn.
-- Các đường dẫn /dang-ky/user, /dang-ky/driver, /dang-ky/merchant đã chia sẻ trước đó:
-  tự động chuyển tới phần tải app tương ứng thay vì biểu mẫu web.
+PATCH nay:
+  - Khong thay doi App.jsx, anh, route, Navbar tren mobile.
+  - Hero desktop su dung object-fit contain khi viewport >1900 CSS px,
+    tranh cat chu the va tang chieu cao theo be ngang.
+  - Noi dung trang mo rong hop ly tren viewport rat rong.
+  - Font/kich thuoc nut/heading/description co gian theo viewport.
+  - Voi zoom 50%, cac noi dung se van nho hon zoom 100% do thiet lap browser.
 
-KHÔNG THAY ĐỔI:
-- Navbar mobile một hàng: menu ba gạch, iMOVE, tìm kiếm, Tải ứng dụng.
-- VI/EN trên đầu sidebar, menu hỗ trợ, trang hướng dẫn.
-- Bố cục trang chủ, Hero, ảnh và các nút tải khác.
-
-QUAN TRỌNG:
-Bản sửa chỉ điều hướng đến nút tải ứng dụng, KHÔNG tự tạo tài khoản.
-Nếu APP_LINKS trong src/config.js chưa được cấu hình với URL App Store hoặc Google Play
-chính thức, nhấn nút cửa hàng ứng dụng sẽ hiển thị thông báo chờ cập nhật như trước.
-Bạn có thể điền các link phát hành chính thức vào src/config.js khi đã có.
-
-KIỂM TRA:
-1. npm run dev
-2. Mở Navbar > Danh sách đăng ký > chọn iMove Driver.
-3. Phải tới /tai-ung-dung#app-driver, thẻ iMove Driver viền đỏ.
-4. Thử User, Merchant và sidebar mobile tương tự.
-5. Ctrl+F5 hoặc build/deploy lại trên Vercel/VPS để cập nhật.
-
-ĐÃ KIỂM TRA: JSX bằng TypeScript parser, CSS bằng PostCSS parser.
-CHƯA XÁC MINH: build production và bấm thử trong website đang deploy.
-
-Nếu bạn đã chỉnh sửa App.jsx hoặc styles.css sau bản PATCH 15/10, hãy backup trước
-khi chép đè, vì chép đè sẽ thay thế những thay đổi tự thêm của bạn.
+Luu y: Chua test build production; chi xac thuc CSS va anh trong PATCH.

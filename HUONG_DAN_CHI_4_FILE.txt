@@ -1,0 +1,22 @@
+# iMOVE — Hero full-bleed + typography patch (22/10/2026)
+
+## Copy only these four files
+
+- `index.html` -> root of your React/Vite project (Google Fonts Be Vietnam Pro).
+- `src/App.jsx` -> `src/App.jsx` (mobile picture source for Hero only).
+- `src/styles.css` -> `src/styles.css` (CSS desktop/mobile Hero + modern typography).
+- `public/assets/hero-isometric-mobile.webp` -> same folder (mobile-optimized composition).
+
+All other images, Vercel configuration, navigation, registration routes, search, language and other pages are unchanged. These files are based on **iMOVE_VERCEL_FIXED_REACT_VITE.zip** shared previously. If you edited these files since that version, integrate only the hero `<picture>` markup and the CSS block marked `iMOVE HERO & TYPOGRAPHY 2026-10-22` rather than overwriting.
+
+## Test
+
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+On Vercel choose `Vite` / `npm run build` / `dist`, and redeploy.
+
+Mobile crop centers the car, scooter and navigation phone; desktop artwork extends to both viewport edges. External Google Fonts require a network connection and gracefully fall back to system sans-serif when unavailable.

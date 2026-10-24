@@ -1,0 +1,93 @@
+/* ================================================================
+   iMOVE · ZOOM / ULTRAWIDE RESPONSIVE FIX
+   Đặt CUỐI src/styles.css — không sửa JSX, không tác động mobile.
+   Khi zoom trình duyệt nhỏ (ví dụ 50%), viewport CSS có thể lớn
+   gấp đôi: cân lại tỉ lệ Hero và chiều rộng nội dung.
+   ================================================================ */
+@media (min-width: 1900px) {
+  /* Avoid narrow 1200px island on virtual 2K–4K viewports. */
+  .container {
+    width: min(82vw, 2600px);
+  }
+
+  /* The original max-height:740px made cover crop the image at 50%. */
+  .home-hero .hero-inner {
+    min-height: clamp(760px, 44vw, 1700px);
+  }
+  .home-hero .hero-art-wrap {
+    inset: 0 auto 0 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  .home-hero .hero-art-picture,
+  .home-hero .hero-art {
+    width: 100%;
+    height: 100%;
+  }
+  .home-hero .hero-art {
+    object-fit: contain;
+    object-position: right center;
+  }
+  .home-hero::before {
+    background: linear-gradient(90deg,
+       #b50011 0%, rgba(184,0,17,.97) 25%,
+       rgba(184,0,17,.74) 37%,
+       rgba(184,0,17,.08) 59%, transparent 75%);
+  }
+  .home-hero .home-hero-copy {
+    width: min(45%, 1000px);
+    padding-block: clamp(62px,4vw,115px);
+  }
+  .home-hero h1 {
+    font-size: clamp(70px, 3.85vw, 135px);
+    line-height: 1.13;
+    max-width: 1000px;
+  }
+  .home-hero .hero-eyebrow {font-size: clamp(11px,.67vw,21px);}
+  .home-hero .home-hero-copy>p {
+    font-size: clamp(15px,.85vw,28px);
+    max-width: 850px;
+  }
+  .home-hero .white-cta,.home-hero .outline-light-cta {
+    min-height: clamp(45px,2.9vw,86px);
+    padding: clamp(12px,.8vw,25px) clamp(20px,1.4vw,46px);
+    font-size: clamp(13px,.79vw,25px);
+  }
+  .home-hero .hero-small-detail {
+    font-size: clamp(11px,.66vw,21px);
+    margin-top: clamp(25px,1.8vw,55px);
+  }
+  .home-hero .hero-small-detail .icon-ping {
+    width: clamp(23px,1.5vw,45px);
+    height: clamp(23px,1.5vw,45px);
+  }
+  .home-hero .hero-stat {font-size: clamp(11px,.66vw,21px);}
+  /* Other page sections grow together instead of shrinking to a tiny island. */
+  .section {padding-block:clamp(86px,5.2vw,172px);}
+  .section-heading h2 {font-size: clamp(46px,2.65vw,86px);}
+  .section-heading-side {max-width: 620px;}
+  .section-heading-side p {font-size:clamp(13px,.78vw,25px);}
+  .eyebrow {font-size:clamp(11px,.69vw,22px);}
+  .services-grid {gap:clamp(14px,.95vw,30px);}
+  .service-card-inner {padding-inline:clamp(17px,1vw,34px);}
+  .service-name {font-size:clamp(17px,.96vw,31px);}
+  .service-subtitle {font-size:clamp(12px,.72vw,23px);}
+  .service-more {font-size:clamp(11px,.65vw,21px);}
+}
+
+@media (min-width: 2400px) {
+  /* Navbar legibility at 50% browser zoom, while keeping its desktop layout. */
+  .topbar {height:clamp(28px,1.65vw,54px);font-size:clamp(10px,.7vw,21px);}
+  .imove-new-header .imove-new-nav-wrap {
+    height:clamp(84px,4.5vw,148px);
+    min-height:clamp(84px,4.5vw,148px);
+  }
+  .imove-new-header .imove-new-nav-wrap .logo {font-size:clamp(35px,2vw,64px);}
+  .imove-navbar-right {gap:clamp(18px,1.2vw,40px);}
+  .imove-search {width:clamp(290px,19vw,620px);flex-basis:clamp(290px,19vw,620px);}
+  .imove-search-box {height:clamp(46px,2.6vw,85px);border-radius:999px;padding-inline:clamp(13px,.8vw,26px);}
+  .imove-search-box input {font-size:clamp(13px,.75vw,24px);}
+  .imove-nav-download {font-size:clamp(13px,.76vw,24px);min-height:clamp(44px,2.7vw,86px);padding:clamp(12px,.8vw,25px) clamp(20px,1.5vw,48px);}
+}
