@@ -13,6 +13,7 @@ import {
 import { APP_LINKS, CONTACT } from './config';
 
 const A = '/assets/';
+const appLogoPath = role => `${A}app-logo-${role}.svg`;
 // Trang chọn ứng dụng + thẻ tải riêng cho từng vai trò.
 const appDownloadPath = role => `/tai-ung-dung#app-${role}`;
 const roles = {
@@ -116,9 +117,6 @@ function StoreBadge({ platform, onClick, compact=false }) {
 }
 function StoreBadges({ role='user', onDownload, compact=false }) {
   return <div className="store-badges"><StoreBadge platform="ios" compact={compact} onClick={()=>onDownload(role,'ios')}/><StoreBadge platform="android" compact={compact} onClick={()=>onDownload(role,'android')}/></div>;
-}
-function TopBar({ onSocial }) {
-  return <div className="topbar"><div className="container topbar-inner"><div className="top-socials"><button aria-label="Facebook" onClick={()=>onSocial('Facebook')}><Facebook size={13} fill="currentColor"/></button><button aria-label="TikTok" onClick={()=>onSocial('TikTok')}><Music2 size={13}/></button></div><span>By TH79 <span className="topbar-sep">|</span> Connected Living</span></div></div>;
 }
 // Shared language state. Stored locally so the visitor keeps their chosen language.
 const LanguageContext = React.createContext('vi');
@@ -249,7 +247,7 @@ function InstantSearch({navigationKey}) {
     </div>}
   </div>;
 }
-function NewHeader({onSocial}) {
+function NewHeader() {
   const navigate = useNavigate();
   const language=useLanguage();
   const tx=(vi,en)=>localText(language,vi,en);
@@ -267,7 +265,6 @@ function NewHeader({onSocial}) {
     return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',esc)};
   },[regOpen]);
   return <>
-    <TopBar onSocial={onSocial}/>
     <header className="site-header imove-new-header"><div className="container nav-wrap imove-new-nav-wrap">
       <div className="imove-navbar-left"><button type="button" className={`imove-explore-button ${sidebarOpen?'is-active':''}`} aria-label={tx('Mở menu Khám phá','Open Explore menu')} aria-controls="imove-explore-sidebar" aria-expanded={sidebarOpen} onClick={()=>setSidebarOpen(true)}><Menu size={23}/><span>{tx('Khám phá','Explore')}</span></button><Logo/></div>
       <div className="imove-navbar-right">
@@ -442,7 +439,7 @@ function AppCard({role,onDownload}) {
   const language=useLanguage(),tx=(vi,en)=>localText(language,vi,en),r=localizedRole(role,language);
   const {pathname,hash}=useLocation();
   const chosen=pathname==='/tai-ung-dung' && hash===`#app-${role}`;
-  return <article id={`app-${role}`} className={`app-card app-card-${role}${chosen?' app-card-chosen':''}`} aria-label={`${r.label} – ${tx('Tải ứng dụng','Download the app')}`}><div className="app-card-header"><div className="app-square-icon">iM.</div><div><h3>{r.label}</h3><p>{r.subtitle}</p></div></div><p className="app-card-desc">{r.cardDesc}</p>{chosen&&<p className="app-card-register-hint"><CheckCircle2 size={17}/>{tx(`Tải ${r.label} để bắt đầu đăng ký tài khoản trong ứng dụng.`,`Download ${r.label} to create your account in the app.`)}</p>}<StoreBadges role={role} onDownload={onDownload} compact/><div className="app-card-art"><div className="app-card-phone"><PhoneMockup role={role} small/></div><div className="app-card-qr"><img src={`${A}website-qr.png`} alt="Mã QR dẫn tới trang ứng dụng iMove"/><span>{tx('Quét để xem thông tin','Scan for details')}</span></div></div><Link to={`/${role}`} className="app-more">{tx('Tìm hiểu ứng dụng','Learn about the app')} <ArrowUpRight size={16}/></Link></article>;
+  return <article id={`app-${role}`} className={`app-card app-card-${role}${chosen?' app-card-chosen':''}`} aria-label={`${r.label} – ${tx('Tải ứng dụng','Download the app')}`}><div className="app-card-header"><div className="app-square-icon app-square-logo"><img src={appLogoPath(role)} alt={`Logo ${r.label}`}/></div><div><h3>{r.label}</h3><p>{r.subtitle}</p></div></div><p className="app-card-desc">{r.cardDesc}</p>{chosen&&<p className="app-card-register-hint"><CheckCircle2 size={17}/>{tx(`Tải ${r.label} để bắt đầu đăng ký tài khoản trong ứng dụng.`,`Download ${r.label} to create your account in the app.`)}</p>}<StoreBadges role={role} onDownload={onDownload} compact/><div className="app-card-art"><div className="app-card-phone"><PhoneMockup role={role} small/></div><div className="app-card-qr"><img src={`${A}website-qr.png`} alt="Mã QR dẫn tới trang ứng dụng iMove"/><span>{tx('Quét để xem thông tin','Scan for details')}</span></div></div><Link to={`/${role}`} className="app-more">{tx('Tìm hiểu ứng dụng','Learn about the app')} <ArrowUpRight size={16}/></Link></article>;
 }
 function AppSelectionPage({onDownload}) {
   const language=useLanguage(),tx=(vi,en)=>localText(language,vi,en);
@@ -609,5 +606,5 @@ export default function App(){
   const showToast=(txt)=>{setToast(txt);clearTimeout(timeout.current);timeout.current=setTimeout(()=>setToast(''),3500)};
   const openDownload=(role,platform)=>{const url=APP_LINKS[role]?.[platform];if(url){window.open(url,'_blank','noopener,noreferrer')}else setModal({role,platform})};
   const onSocial=(name)=>{const url=name==='Facebook'?CONTACT.socialFacebook:CONTACT.socialTiktok;if(url)window.open(url,'_blank','noopener,noreferrer');else showToast(`Kênh ${name} chính thức đang được cập nhật.`)};
-  return <LanguageContext.Provider value={language}><LanguageSetterContext.Provider value={setLanguage}><><ScrollBehavior/><NewHeader onSocial={onSocial}/><Routes><Route path="/" element={<HomePage onDownload={openDownload}/>}/><Route path="/tai-ung-dung" element={<AppSelectionPage onDownload={openDownload}/>}/><Route path="/user" element={<RolePage role="user" onDownload={openDownload}/>}/><Route path="/driver" element={<RolePage role="driver" onDownload={openDownload}/>}/><Route path="/merchant" element={<RolePage role="merchant" onDownload={openDownload}/>}/><Route path="/dang-ky/user" element={<Navigate to={appDownloadPath('user')} replace/>}/><Route path="/dang-ky/driver" element={<Navigate to={appDownloadPath('driver')} replace/>}/><Route path="/dang-ky/merchant" element={<Navigate to={appDownloadPath('merchant')} replace/>}/><Route path="/huong-dan/su-dung/user" element={<GuidePage kind="use" role="user"/>}/><Route path="/huong-dan/su-dung/driver" element={<GuidePage kind="use" role="driver"/>}/><Route path="/huong-dan/su-dung/merchant" element={<GuidePage kind="use" role="merchant"/>}/><Route path="/huong-dan/dang-ky/user" element={<GuidePage kind="register" role="user"/>}/><Route path="/huong-dan/dang-ky/driver" element={<GuidePage kind="register" role="driver"/>}/><Route path="/huong-dan/dang-ky/merchant" element={<GuidePage kind="register" role="merchant"/>}/><Route path="/tin-tuc" element={<NewsPage/>}/><Route path="/cham-soc-khach-hang" element={<SupportPage/>}/><Route path="/privacy" element={<LegalPage type="privacy"/>}/><Route path="/terms" element={<LegalPage type="terms"/>}/><Route path="*" element={<div className="not-found container"><h1>404</h1><h2>Không tìm thấy trang</h2><Link className="pill-btn" to="/">Về trang chủ <ArrowRight size={16}/></Link></div>}/></Routes><Footer onDownload={openDownload} onSocial={onSocial}/>{modal&&<DownloadDialog data={modal} onClose={()=>setModal(null)}/>} {toast&&<Toast message={toast}/>}</></LanguageSetterContext.Provider></LanguageContext.Provider>;
+  return <LanguageContext.Provider value={language}><LanguageSetterContext.Provider value={setLanguage}><><ScrollBehavior/><NewHeader/><Routes><Route path="/" element={<HomePage onDownload={openDownload}/>}/><Route path="/tai-ung-dung" element={<AppSelectionPage onDownload={openDownload}/>}/><Route path="/user" element={<RolePage role="user" onDownload={openDownload}/>}/><Route path="/driver" element={<RolePage role="driver" onDownload={openDownload}/>}/><Route path="/merchant" element={<RolePage role="merchant" onDownload={openDownload}/>}/><Route path="/dang-ky/user" element={<Navigate to={appDownloadPath('user')} replace/>}/><Route path="/dang-ky/driver" element={<Navigate to={appDownloadPath('driver')} replace/>}/><Route path="/dang-ky/merchant" element={<Navigate to={appDownloadPath('merchant')} replace/>}/><Route path="/huong-dan/su-dung/user" element={<GuidePage kind="use" role="user"/>}/><Route path="/huong-dan/su-dung/driver" element={<GuidePage kind="use" role="driver"/>}/><Route path="/huong-dan/su-dung/merchant" element={<GuidePage kind="use" role="merchant"/>}/><Route path="/huong-dan/dang-ky/user" element={<GuidePage kind="register" role="user"/>}/><Route path="/huong-dan/dang-ky/driver" element={<GuidePage kind="register" role="driver"/>}/><Route path="/huong-dan/dang-ky/merchant" element={<GuidePage kind="register" role="merchant"/>}/><Route path="/tin-tuc" element={<NewsPage/>}/><Route path="/cham-soc-khach-hang" element={<SupportPage/>}/><Route path="/privacy" element={<LegalPage type="privacy"/>}/><Route path="/terms" element={<LegalPage type="terms"/>}/><Route path="*" element={<div className="not-found container"><h1>404</h1><h2>Không tìm thấy trang</h2><Link className="pill-btn" to="/">Về trang chủ <ArrowRight size={16}/></Link></div>}/></Routes><Footer onDownload={openDownload} onSocial={onSocial}/>{modal&&<DownloadDialog data={modal} onClose={()=>setModal(null)}/>} {toast&&<Toast message={toast}/>}</></LanguageSetterContext.Provider></LanguageContext.Provider>;
 }

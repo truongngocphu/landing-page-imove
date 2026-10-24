@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs><linearGradient id="red" x1="180" y1="70" x2="800" y2="952" gradientUnits="userSpaceOnUse"><stop stop-color="#FF2E37"/><stop offset=".52" stop-color="#E90012"/><stop offset="1" stop-color="#B0000C"/></linearGradient><linearGradient id="pin" x1="512" y1="142" x2="512" y2="684" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF"/><stop offset="1" stop-color="#EDF0F3"/></linearGradient></defs>
+<rect x="30" y="30" width="964" height="964" rx="190" fill="url(#red)"/>
+<path d="M112 90C174 58 314 52 398 67C281 100 205 150 162 215H63C70 162 85 123 112 90Z" fill="#fff" opacity=".28"/>
+<rect x="43" y="43" width="938" height="938" rx="181" fill="none" stroke="#ff737c" stroke-width="8" opacity=".65"/>
+<path d="M512 146C389 146 289 244 289 369C289 522 434 611 500 689C507 697 517 697 524 689C590 611 735 522 735 369C735 244 635 146 512 146Z" fill="url(#pin)"/>
+<path d="M516 431C472 470 438 533 421 600C409 645 447 658 472 622L594 465C612 439 588 414 560 414H538C530 414 523 424 516 431Z" fill="#FFF"/>
+<path d="M529 453C490 487 462 538 452 582" fill="none" stroke="#283543" stroke-width="18" stroke-linecap="round" stroke-dasharray="35 28"/>
+<circle cx="512" cy="337" r="92" fill="#e80717"/>
+<path d="M461 311H563L550 349Q544 361 532 361H492Q480 361 474 349L461 311Z" fill="white"/><path d="M474 310V293H550V310" stroke="white" stroke-width="11" stroke-linecap="round"/><rect x="485" y="358" width="54" height="36" rx="5" fill="white"/><rect x="504" y="369" width="15" height="25" rx="2" fill="#EE0615"/>
+<text x="512" y="817" text-anchor="middle" fill="#fff" font-family="Arial,DejaVu Sans,sans-serif" font-weight="900" font-size="148" letter-spacing="-3">iMOVE</text>
+<rect x="262" y="853" width="500" height="101" rx="50.5" fill="#fff"/>
+<text x="512" y="926" text-anchor="middle" fill="#25313e" font-family="Arial,DejaVu Sans,sans-serif" font-weight="900" font-size="59" letter-spacing="3">MERCHANT</text>
+</svg>

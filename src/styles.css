@@ -1475,3 +1475,134 @@ img,picture,video {max-width:100%;}
 .home-hero .hero-inner {isolation:auto;}
 .home-hero .hero-art-wrap {z-index:0;}
 .home-hero .home-hero-copy {z-index:3;}
+
+/* ===== TH79 PATCH 2026-10-24: remove top red strip, unify app logos, stabilize hero background ===== */
+.topbar{display:none!important;}
+.site-header,.site-header.imove-new-header{top:0!important;}
+body{overflow-x:hidden;}
+
+.city-hero,
+.selection-hero{
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.selection-hero{background-position:center 48%;}
+@media (min-width:1600px){
+  .selection-hero{background-position:center 46%;}
+}
+@media (max-width:1024px){
+  .selection-hero{background-position:62% center;}
+}
+@media (max-width:600px){
+  .selection-hero{background-position:71% center;background-size:auto 100%;}
+}
+
+.app-card-header{align-items:center;gap:14px;}
+.app-square-logo{
+  min-width:72px;
+  width:72px;
+  height:72px;
+  border-radius:18px;
+  padding:0;
+  overflow:hidden;
+  background:transparent;
+  box-shadow:none;
+}
+.app-square-logo img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+}
+.app-card-header h3{margin-bottom:4px;}
+.app-card{background:radial-gradient(circle at top left,rgba(255,255,255,.96),rgba(250,250,250,.97) 58%),radial-gradient(#ededed 0.7px,transparent 0.7px),#fafafa;background-size:auto,9px 9px,auto;}
+.app-card-chosen{border-color:#ef0713;box-shadow:0 18px 38px rgba(239,7,19,.12);}
+
+@media (max-width:1100px){
+  .app-square-logo{min-width:64px;width:64px;height:64px;border-radius:16px;}
+}
+@media (max-width:600px){
+  .app-square-logo{min-width:68px;width:68px;height:68px;}
+}
+
+
+/* iMOVE FINAL 2026-10-24 – 2K/4K/zoom hero layout. Last in cascade by design. */
+.topbar{display:none!important;}
+.site-header.imove-new-header{top:0!important;}
+
+/* The artwork is fully visible on desktop, scaled by height, never cropped by cover.
+   Solid red behind the media fills the full viewport edge-to-edge. */
+@media (min-width:901px){
+  .home-hero{background:linear-gradient(110deg,#b70011 0%,#d50011 60%,#ef0713 100%);}
+  .home-hero .hero-inner{
+    width:min(88%,2600px);
+    min-height:clamp(620px,42vw,1500px);
+    height:auto;
+    overflow:visible;
+  }
+  .home-hero .hero-art-wrap{
+    position:absolute;
+    inset:0 auto 0 50%;
+    left:50%;right:auto;top:0;bottom:0;
+    width:100vw;height:100%;max-width:none;
+    transform:translateX(-50%);
+    overflow:hidden;
+    mask-image:none;-webkit-mask-image:none;
+    z-index:0;pointer-events:none;
+  }
+  .home-hero .hero-art-picture{
+    position:absolute;top:0;right:0;left:auto;bottom:0;
+    display:block;width:auto;height:100%;
+    max-width:none;
+  }
+  .home-hero .hero-art{
+    display:block;
+    width:auto!important;height:100%!important;
+    max-width:none!important;
+    aspect-ratio:auto!important;
+    object-fit:contain!important;
+    object-position:right center!important;
+    transform:none!important;
+    filter:none;
+  }
+  .home-hero .home-hero-copy{
+    position:relative;z-index:3;
+    width:min(46%,1050px);
+    padding-block:clamp(54px,3.65vw,145px);
+  }
+  .home-hero h1{font-size:clamp(47px,3.5vw,125px);max-width:1050px;}
+  .home-hero::before{
+    display:block;
+    position:absolute;z-index:1;inset:0;
+    background:linear-gradient(90deg,#b70011 0%,rgba(180,0,16,.98) 16%,rgba(184,0,17,.83) 32%,rgba(184,0,17,.25) 53%,transparent 76%);
+  }
+  .home-hero .hero-stat{z-index:2;}
+}
+/* Original full selection background retains vehicle visibility at zoom and large monitors. */
+@media (min-width:901px){
+  .city-hero.selection-hero{
+    height:clamp(530px,32vw,1370px);
+    background-color:#66000e;
+    background-repeat:no-repeat,no-repeat;
+    background-size:100% 100%, auto 100%;
+    background-position:center center,right center;
+  }
+}
+/* Tablet: text first, complete image second, with a shared red background. */
+@media (min-width:701px) and (max-width:900px){
+  .home-hero .hero-art-wrap{overflow:hidden;}
+  .home-hero .hero-art-picture{width:100%;height:auto;}
+  .home-hero .hero-art{width:100%;height:auto;object-fit:contain;}
+  .city-hero.selection-hero{background-position:center center,65% center;}
+}
+/* Phones: landscape subject preview is fitted in full, no side cut or overflow. */
+@media (max-width:700px){
+  .home-hero .hero-art-picture{display:block;width:100%;height:auto;}
+  .home-hero .hero-art{height:auto!important;width:100%!important;object-fit:contain!important;max-width:100%!important;}
+  .city-hero.selection-hero{
+    background-color:#56000c;
+    background-size:100% 100%,100% auto;
+    background-position:center center,center bottom;
+    background-repeat:no-repeat,no-repeat;
+  }
+}
