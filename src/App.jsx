@@ -4,12 +4,12 @@ import {
   ArrowRight, ArrowUpRight, BadgeCheck, BellRing, Bike, Box, CalendarCheck,
   CarFront, Check, CheckCircle2, ChevronDown, CircleHelp, Clock3, Copy,
   CreditCard, Gift, Globe2, Headphones, Heart, LocateFixed, Map, MapPin,
-  Menu, Minus, MousePointerClick, Navigation2, Package, Play, Plus, Route as RouteIcon,
+  Menu, Minus, MousePointerClick, Navigation2, Package, Play, Plus, RouteIcon,
   ShieldCheck, ShoppingBag, Smartphone, Sparkles, Store, ThumbsUp, Truck,
   UtensilsCrossed, Wallet, X, Facebook, Music2, ScanQrCode, Send, MoveRight,
   Search, Languages, Newspaper, BookOpen, UserRoundPlus, Info, ChevronRight, LifeBuoy,
   ExternalLink, FileText, Home, Grid2X2
-} from 'lucide-react';
+} from './icons';
 import { APP_LINKS, CONTACT } from './config';
 
 const A = '/assets/';

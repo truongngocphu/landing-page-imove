@@ -1110,7 +1110,21 @@ h1 em,h2 em,h3 em {font-family:var(--sans);font-weight:inherit;letter-spacing:in
   overflow:hidden;
   background:#dc0012;
 }
-.home-hero::before,.home-hero::after {display:none;}
+.home-hero::before {
+  content:"";
+  display:block;
+  position:absolute;
+  z-index:1;
+  inset:0;
+  width:auto;
+  height:auto;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:linear-gradient(90deg,rgba(153,0,14,.94) 0%,rgba(184,0,17,.83) 30%,rgba(192,0,17,.30) 52%,rgba(222,0,18,0) 76%);
+  pointer-events:none;
+}
+.home-hero::after {display:none;}
 .home-hero .hero-inner {
   min-height:clamp(600px,42vw,740px);
   position:relative;
@@ -1149,15 +1163,6 @@ h1 em,h2 em,h3 em {font-family:var(--sans);font-weight:inherit;letter-spacing:in
   -webkit-mask-image:none;
   pointer-events:none;
 }
-.home-hero .hero-art-wrap::after {
-  content:"";
-  display:block;
-  position:absolute;
-  z-index:1;
-  inset:0;
-  background:linear-gradient(90deg,rgba(153,0,14,.94) 0%,rgba(184,0,17,.83) 30%,rgba(192,0,17,.30) 52%,rgba(222,0,18,0) 76%);
-  pointer-events:none;
-}
 .home-hero .hero-art-picture {
   display:block;
   width:100%;
@@ -1178,13 +1183,13 @@ h1 em,h2 em,h3 em {font-family:var(--sans);font-weight:inherit;letter-spacing:in
   .home-hero .hero-inner {min-height:590px;}
   .home-hero .home-hero-copy {width:60%;}
   .home-hero h1 {font-size:clamp(43px,5vw,60px);}
-  .home-hero .hero-art-wrap::after {background:linear-gradient(90deg,#ad0011 0%,rgba(170,0,14,.93) 43%,rgba(185,0,14,.38) 72%,transparent 100%);}
+  .home-hero::before {background:linear-gradient(90deg,#ad0011 0%,rgba(170,0,14,.93) 43%,rgba(185,0,14,.38) 72%,transparent 100%);}
   .home-hero .hero-art {object-position:61% 9%;}
 }
 
 @media (max-width:700px) {
   .home-hero {min-height:0;}
-  .home-hero .hero-art-wrap::after {display:none;}
+  .home-hero::before {display:none;}
   .home-hero .hero-inner {
     display:flex;
     flex-direction:column;
@@ -1264,3 +1269,209 @@ h1 em,h2 em,h3 em {font-family:var(--sans);font-weight:inherit;letter-spacing:in
   .home-hero .white-cta,.home-hero .outline-light-cta{padding-inline:11px;}
 }
 @media (prefers-reduced-motion:reduce){.home-hero .hero-art{transform:none;}}
+
+
+/* ================================================================
+   iMOVE · ZOOM / ULTRAWIDE RESPONSIVE FIX
+   Đặt CUỐI src/styles.css — không sửa JSX, không tác động mobile.
+   Khi zoom trình duyệt nhỏ (ví dụ 50%), viewport CSS có thể lớn
+   gấp đôi: cân lại tỉ lệ Hero và chiều rộng nội dung.
+   ================================================================ */
+@media (min-width: 1900px) {
+  /* Avoid narrow 1200px island on virtual 2K–4K viewports. */
+  .container {
+    width: min(82vw, 2600px);
+  }
+
+  /* The original max-height:740px made cover crop the image at 50%. */
+  .home-hero .hero-inner {
+    min-height: clamp(760px, 44vw, 1700px);
+  }
+  .home-hero .hero-art-wrap {
+    inset: 0 auto 0 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  .home-hero .hero-art-picture,
+  .home-hero .hero-art {
+    width: 100%;
+    height: 100%;
+  }
+  .home-hero .hero-art {
+    object-fit: contain;
+    object-position: right center;
+  }
+  .home-hero::before {
+    background: linear-gradient(90deg,
+       #b50011 0%, rgba(184,0,17,.97) 25%,
+       rgba(184,0,17,.74) 37%,
+       rgba(184,0,17,.08) 59%, transparent 75%);
+  }
+  .home-hero .home-hero-copy {
+    width: min(45%, 1000px);
+    padding-block: clamp(62px,4vw,115px);
+  }
+  .home-hero h1 {
+    font-size: clamp(70px, 3.85vw, 135px);
+    line-height: 1.13;
+    max-width: 1000px;
+  }
+  .home-hero .hero-eyebrow {font-size: clamp(11px,.67vw,21px);}
+  .home-hero .home-hero-copy>p {
+    font-size: clamp(15px,.85vw,28px);
+    max-width: 850px;
+  }
+  .home-hero .white-cta,.home-hero .outline-light-cta {
+    min-height: clamp(45px,2.9vw,86px);
+    padding: clamp(12px,.8vw,25px) clamp(20px,1.4vw,46px);
+    font-size: clamp(13px,.79vw,25px);
+  }
+  .home-hero .hero-small-detail {
+    font-size: clamp(11px,.66vw,21px);
+    margin-top: clamp(25px,1.8vw,55px);
+  }
+  .home-hero .hero-small-detail .icon-ping {
+    width: clamp(23px,1.5vw,45px);
+    height: clamp(23px,1.5vw,45px);
+  }
+  .home-hero .hero-stat {font-size: clamp(11px,.66vw,21px);}
+  /* Other page sections grow together instead of shrinking to a tiny island. */
+  .section {padding-block:clamp(86px,5.2vw,172px);}
+  .section-heading h2 {font-size: clamp(46px,2.65vw,86px);}
+  .section-heading-side {max-width: 620px;}
+  .section-heading-side p {font-size:clamp(13px,.78vw,25px);}
+  .eyebrow {font-size:clamp(11px,.69vw,22px);}
+  .services-grid {gap:clamp(14px,.95vw,30px);}
+  .service-card-inner {padding-inline:clamp(17px,1vw,34px);}
+  .service-name {font-size:clamp(17px,.96vw,31px);}
+  .service-subtitle {font-size:clamp(12px,.72vw,23px);}
+  .service-more {font-size:clamp(11px,.65vw,21px);}
+}
+
+@media (min-width: 2400px) {
+  /* Navbar legibility at 50% browser zoom, while keeping its desktop layout. */
+  .topbar {height:clamp(28px,1.65vw,54px);font-size:clamp(10px,.7vw,21px);}
+  .imove-new-header .imove-new-nav-wrap {
+    height:clamp(84px,4.5vw,148px);
+    min-height:clamp(84px,4.5vw,148px);
+  }
+  .imove-new-header .imove-new-nav-wrap .logo {font-size:clamp(35px,2vw,64px);}
+  .imove-navbar-right {gap:clamp(18px,1.2vw,40px);}
+  .imove-search {width:clamp(290px,19vw,620px);flex-basis:clamp(290px,19vw,620px);}
+  .imove-search-box {height:clamp(46px,2.6vw,85px);border-radius:999px;padding-inline:clamp(13px,.8vw,26px);}
+  .imove-search-box input {font-size:clamp(13px,.75vw,24px);}
+  .imove-nav-download {font-size:clamp(13px,.76vw,24px);min-height:clamp(44px,2.7vw,86px);padding:clamp(12px,.8vw,25px) clamp(20px,1.5vw,48px);}
+}
+
+
+/* ===========================================================
+   iMOVE vNext — Full-subject hero + responsive screens + new icons
+   Compatible with existing navbar, services, footer and navigation.
+   =========================================================== */
+.imove-rounded-icon {
+  display:inline-flex; flex:0 0 auto; align-items:center; justify-content:center;
+  vertical-align:middle; line-height:1; position:relative;
+}
+.imove-rounded-icon-fallback { display:block; width:100%; height:100%; }
+.imove-rounded-icon-glyph {
+  display:none; width:100%;height:100%; align-items:center; justify-content:center;
+  font-family:'Material Symbols Rounded'; font-weight:500; font-style:normal;
+  line-height:1; letter-spacing:normal; text-transform:none; white-space:nowrap;
+  -webkit-font-feature-settings:'liga';font-feature-settings:'liga';
+  font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;
+  -webkit-font-smoothing:antialiased; user-select:none;
+}
+.imove-material-icons-ready .imove-rounded-icon-fallback {display:none;}
+.imove-material-icons-ready .imove-rounded-icon-glyph {display:flex;}
+/* Higher contrast/roundness for large icon blocks */
+.feature-icon .imove-rounded-icon-glyph,.imove-news-icon .imove-rounded-icon-glyph,
+.imove-support-card>.imove-rounded-icon .imove-rounded-icon-glyph {font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 32;}
+
+/* Desktop: show entire source artwork, no cropping of car and motorbike.
+   The edge-to-edge red background fills beyond the contained image. */
+.home-hero {background:linear-gradient(108deg,#be0011 0%,#d90010 54%,#f00915 100%);}
+@media (min-width:901px) {
+ .home-hero .hero-inner {
+   width:min(92%, 1800px); min-height:clamp(610px,40.5vw,910px);
+ }
+ .home-hero .hero-art-wrap {
+   inset:0 auto 0 50%; left:50%;right:auto;
+   width:100vw;height:100%;max-width:none;
+   transform:translateX(-50%);overflow:hidden;
+ }
+ .home-hero .hero-art-picture {width:100%;height:100%;display:block;}
+ .home-hero .hero-art {
+   display:block;width:100%;height:100%;max-width:none;
+   object-fit:contain;object-position:right center;
+   aspect-ratio:auto;transform:none;
+ }
+ .home-hero::before {background:linear-gradient(90deg,#b90010 0%,rgba(185,0,16,.98) 19%,rgba(185,0,16,.74) 36%,rgba(185,0,16,.24) 55%,transparent 76%);}
+ .home-hero .home-hero-copy {width:min(48%,670px);padding-block:65px;}
+ .home-hero h1 {font-size:clamp(46px,3.65vw,75px);line-height:1.12;max-width:680px;}
+}
+/* Tablet portrait: editorial content above the complete artwork. */
+@media (min-width:701px) and (max-width:900px) {
+ .home-hero .hero-inner {display:flex;flex-direction:column;align-items:stretch;width:min(92%,740px);height:auto;min-height:0;}
+ .home-hero .home-hero-copy {width:100%;max-width:690px;padding:52px 0 16px;}
+ .home-hero h1 {font-size:clamp(43px,6.3vw,62px);}
+ .home-hero .hero-art-wrap {position:relative;inset:auto;left:50%;width:100vw;height:auto;margin:0;transform:translateX(-50%);}
+ .home-hero .hero-art-picture,.home-hero .hero-art {width:100%;height:auto;display:block;}
+ .home-hero .hero-art {aspect-ratio:1672/941;object-fit:contain;object-position:center center;}
+ .home-hero::before {background:linear-gradient(180deg,rgba(171,0,14,.8),rgba(195,0,16,0) 68%);}
+ .home-hero .hero-stat {display:none;}
+}
+@media (max-width:700px) {
+ .home-hero .hero-inner {width:calc(100% - 36px);}
+ .home-hero .hero-art-wrap {width:100vw;overflow:visible;}
+ .home-hero .hero-art {height:auto;aspect-ratio:auto;object-fit:contain;object-position:center center;}
+ .home-hero .hero-art-picture {width:100%;}
+ .home-hero h1 {font-size:clamp(30px,8.2vw,47px);}
+ .home-hero .home-hero-copy {padding-top:clamp(32px,7vw,52px);}
+}
+/* 4K screens and desktop browser zoom-out: preserve subject and readable text. */
+@media (min-width:1900px) {
+ .home-hero .hero-inner {width:min(88%,2600px);min-height:clamp(800px,37vw,1420px);}
+ .home-hero .home-hero-copy {width:min(44%,1050px);padding-block:clamp(70px,3.5vw,145px);}
+ .home-hero h1 {font-size:clamp(74px,3.5vw,126px);max-width:1050px;}
+ .home-hero .hero-art {object-fit:contain;object-position:right center;}
+ .home-hero::before {background:linear-gradient(90deg,#b6000e 0%,rgba(180,0,16,.97) 25%,rgba(180,0,16,.68) 43%,transparent 79%);}
+}
+/* Even smaller phones incl. 320px CSS viewport. */
+@media (max-width:390px) {
+ .home-hero .hero-inner {width:calc(100% - 28px);}
+ .home-hero .hero-buttons {gap:8px;}
+ .home-hero .white-cta,.home-hero .outline-light-cta {padding:11px 12px;min-height:43px;}
+}
+/* Browser accessibility: no forced zoom/overflow clamps. */
+html,body,#root {max-width:100%;}
+img,picture,video {max-width:100%;}
+@media (prefers-reduced-motion:reduce) {
+ .imove-rounded-icon,.home-hero .hero-art {animation:none!important;transition:none!important;}
+}
+
+/* Material rounded icon wrappers: preserve former SVG-based layout selectors. */
+.imove-sidebar-link > .imove-rounded-icon {flex:0 0 auto!important;min-width:0;overflow:visible;}
+.imove-sidebar-link > .imove-rounded-icon:first-child {color:#6b6b6b;}
+.imove-sidebar-link > .imove-rounded-icon:last-child {color:#b9b9b9;margin-left:auto;}
+.imove-sidebar-link.is-current > .imove-rounded-icon:first-child {color:#db0614;}
+.imove-new-header .imove-navbar-left .imove-explore-button > .imove-rounded-icon {display:inline-flex!important;}
+.imove-explore-button > .imove-rounded-icon,.imove-support-nav > .imove-rounded-icon {color:var(--red);}
+.imove-new-header .imove-search-mobile-trigger > .imove-rounded-icon {width:22px!important;height:22px!important;}
+.imove-new-header .imove-nav-download > .imove-rounded-icon {width:17px;height:17px;}
+.imove-news-card > .imove-rounded-icon,.opportunity-card > .imove-rounded-icon {margin:21px 0 13px;}
+.imove-sidebar-language .imove-language-control > .imove-rounded-icon {color:var(--red);}
+.imove-support-nav > .imove-rounded-icon {color:var(--red);}
+.eco-bullets .imove-rounded-icon {color:#1aa76a;}
+.phone-bottom-icons .imove-rounded-icon:first-child {color:var(--red);}
+.faq-question .imove-rounded-icon {transition:transform .25s;}
+.faq-open .faq-question .imove-rounded-icon {transform:rotate(180deg);}
+@media (max-width:900px){
+  .imove-new-header .imove-navbar-left .imove-explore-button > .imove-rounded-icon {display:inline-flex!important;}
+  .imove-new-header .imove-search-mobile-trigger .imove-rounded-icon {display:inline-flex;}
+}
+/* Keep heading and CTAs ABOVE the red readability gradient (no faded text). */
+.home-hero .hero-inner {isolation:auto;}
+.home-hero .hero-art-wrap {z-index:0;}
+.home-hero .home-hero-copy {z-index:3;}
