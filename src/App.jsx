@@ -13,7 +13,7 @@ import {
 import { APP_LINKS, CONTACT } from './config';
 
 const A = '/assets/';
-const appLogoPath = role => `${A}app-logo-${role}.svg`;
+const appLogoPath = role => `${A}app-logo-${role}.png`;
 // Trang chọn ứng dụng + thẻ tải riêng cho từng vai trò.
 const appDownloadPath = role => `/tai-ung-dung#app-${role}`;
 const roles = {

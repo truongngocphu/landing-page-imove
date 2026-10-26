@@ -1,0 +1,16 @@
+TH79 iMOVE – PATCH CHUYỂN ICON SANG PNG | 26/10/2026
+
+Đã làm:
+- Chuyển 3 logo iMove User / Driver / Merchant thành PNG 1024x1024, RGBA, góc ngoài trong suốt.
+- Thêm 3 PNG bản đầy đủ kèm nhãn vai trò: app-logo-*-full.png.
+- Chuyển biểu tượng thương hiệu imove-brand-icon sang PNG.
+- Đổi đường dẫn hình ở src/App.jsx từ app-logo-*.svg thành app-logo-*.png.
+- index.html ưu tiên favicon PNG và ICO, không còn tải favicon.svg.
+
+CÁCH CẬP NHẬT:
+1. Giải nén ZIP vào gốc dự án React + Vite hiện tại, chép đè src/App.jsx và index.html, bổ sung 7 PNG vào public/assets/.
+2. Các PNG favicon cũ (public/favicon.png, favicon.ico, ...) đã có từ bản trước và không cần sửa.
+3. Chạy npm run dev, sau đó Ctrl + F5. Nếu dùng Vercel: git commit/push và redeploy.
+4. Có thể xóa các file app-logo-*.svg cũ để tránh dùng nhầm, vì App.jsx đã trỏ sang PNG.
+
+LƯU Ý: Ảnh PNG là raster, phù hợp Flutter, web và ảnh preview; các icon điều hướng (Material Symbols) không thay đổi.
